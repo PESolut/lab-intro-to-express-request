@@ -1,14 +1,14 @@
 // DEPENDACIES
 const express = require("express")
 const morgan = require("morgan")
+const pokemon = require("./models/pokemon.json");
+console.log(pokemon[0]);
 
 // CONFIGURATION
 const app = express()
 
 // MIDDLEWARE TO SEE HTTP REQUESTS
 app.use(morgan("tiny"))
-
-
 
 // ROUTES
 
