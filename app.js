@@ -2,7 +2,7 @@
 const express = require("express")
 const morgan = require("morgan")
 const pokemon = require("./models/pokemon.json");
-console.log(pokemon[0]);
+// console.log(pokemon[0]);
 
 // CONFIGURATION
 const app = express()
@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 
 // test 1
 app.get("/:verb/:adjective/:noun", (req, res) => {
-    res.send("Congratulations on starting a new project called jumping-joyous-jellybean!")
+    res.send("Congratulations on starting a new project called run-runny-runner!")
 })
 
 // test 2
@@ -60,13 +60,49 @@ app.get("/bugs/:numberOfBugs", (req, res) => {
         res.write(`<p>Click <a href="/">HERE</a> to return to home directory. </p>`)
         res.end()
         return
-    } 
-    // else if(  ){
-        
-    // }
+    }
+})
+app.get("/pokemon", (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.write(
+        res.json(pokemon)
+    )
+res.end()
+})
+app.get('/pokemon/:indexOfArray', (req,res) => {
+    const { indexOfArray } = req.params
+    const foundDC = pokemon.find(element => element.name.toLowerCase() === indexOfArray.toLowerCase())
+    
+    res.setHeader('Content-Type', 'text/html')
 
+    if (+indexOfArray){
+        res.write (
+            res.json(pokemon.at(+indexOfArray))
+        )
+    } else if (foundDC){
+        res.write (
+            res.json(foundDC)
+        )
+    } else { 
+        res.write(
+            res.json([])
+        )
+    } 
 })
 
+app.get ('/pokemon/:searchQuery', (req,res) => {
+    const { searchQuery } = req.params
+    res.setHeader('Content-Type', 'text/html')
+    // // DC stands for defautl case
+    // const foundDC = pokemon.find(element => element.name === searchQuery)
+    
+    // if(foundDC){
+    //     res.write
+    //         res.json('s')
+    //         res.end()
+    // }
+    res.send('hi')
+})
 // console.log(express)
 
 // EXPORT
